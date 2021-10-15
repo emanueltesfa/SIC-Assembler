@@ -1,0 +1,806 @@
+#!/bin/sh
+# This is a shell archive (produced by GNU sharutils 4.15.2).
+# To extract the files from this archive, save it to some FILE, remove
+# everything before the '#!/bin/sh' line above, then type 'sh FILE'.
+#
+lock_dir=_sh840938
+# Made on 2021-10-03 11:21 EDT by <n01058529@cisvm-softeng1>.
+# Source directory was '/home/n01058529@unfcsd.unf.edu/testP1/*'.
+#
+# Existing files will *not* be overwritten, unless '-c' is specified.
+#
+# This shar contains:
+# length mode       name
+# ------ ---------- ------------------------------------------
+#    327 -rw-r--r-- directives.c
+#    145 -rw-r--r-- instructions.c
+#  13295 -rw-r--r-- main.c
+#   1227 -rw-r--r-- symbols.c
+#    650 -rw-r--r-- headers.h
+#    341 -rw-r--r-- makefile
+#   1299 -rw-r--r-- documentation.txt
+#
+MD5SUM=${MD5SUM-md5sum}
+f=`${MD5SUM} --version | egrep '^md5sum .*(core|text)utils'`
+test -n "${f}" && md5check=true || md5check=false
+${md5check} || \
+  echo 'Note: not verifying md5sums.  Consider installing GNU coreutils.'
+if test "X$1" = "X-c"
+then keep_file=''
+else keep_file=true
+fi
+echo=echo
+save_IFS="${IFS}"
+IFS="${IFS}:"
+gettext_dir=
+locale_dir=
+set_echo=false
+
+for dir in $PATH
+do
+  if test -f $dir/gettext \
+     && ($dir/gettext --version >/dev/null 2>&1)
+  then
+    case `$dir/gettext --version 2>&1 | sed 1q` in
+      *GNU*) gettext_dir=$dir
+      set_echo=true
+      break ;;
+    esac
+  fi
+done
+
+if ${set_echo}
+then
+  set_echo=false
+  for dir in $PATH
+  do
+    if test -f $dir/shar \
+       && ($dir/shar --print-text-domain-dir >/dev/null 2>&1)
+    then
+      locale_dir=`$dir/shar --print-text-domain-dir`
+      set_echo=true
+      break
+    fi
+  done
+
+  if ${set_echo}
+  then
+    TEXTDOMAINDIR=$locale_dir
+    export TEXTDOMAINDIR
+    TEXTDOMAIN=sharutils
+    export TEXTDOMAIN
+    echo="$gettext_dir/gettext -s"
+  fi
+fi
+IFS="$save_IFS"
+if (echo "testing\c"; echo 1,2,3) | grep c >/dev/null
+then if (echo -n test; echo 1,2,3) | grep n >/dev/null
+     then shar_n= shar_c='
+'
+     else shar_n=-n shar_c= ; fi
+else shar_n= shar_c='\c' ; fi
+f=shar-touch.$$
+st1=200112312359.59
+st2=123123592001.59
+st2tr=123123592001.5 # old SysV 14-char limit
+st3=1231235901
+
+if   touch -am -t ${st1} ${f} >/dev/null 2>&1 && \
+     test ! -f ${st1} && test -f ${f}; then
+  shar_touch='touch -am -t $1$2$3$4$5$6.$7 "$8"'
+
+elif touch -am ${st2} ${f} >/dev/null 2>&1 && \
+     test ! -f ${st2} && test ! -f ${st2tr} && test -f ${f}; then
+  shar_touch='touch -am $3$4$5$6$1$2.$7 "$8"'
+
+elif touch -am ${st3} ${f} >/dev/null 2>&1 && \
+     test ! -f ${st3} && test -f ${f}; then
+  shar_touch='touch -am $3$4$5$6$2 "$8"'
+
+else
+  shar_touch=:
+  echo
+  ${echo} 'WARNING: not restoring timestamps.  Consider getting and
+installing GNU '\''touch'\'', distributed in GNU coreutils...'
+  echo
+fi
+rm -f ${st1} ${st2} ${st2tr} ${st3} ${f}
+#
+if test ! -d ${lock_dir} ; then :
+else ${echo} "lock directory ${lock_dir} exists"
+     exit 1
+fi
+if mkdir ${lock_dir}
+then ${echo} "x - created lock directory ${lock_dir}."
+else ${echo} "x - failed to create lock directory ${lock_dir}."
+     exit 1
+fi
+# ============= directives.c ==============
+if test -n "${keep_file}" && test -f 'directives.c'
+then
+${echo} "x - SKIPPING directives.c (file already exists)"
+
+else
+${echo} "x - extracting directives.c (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'directives.c' &&
+#include "headers.h"
+X
+X
+int IsADirective( char *Test ){
+X
+return		( 	! ( 
+X		 strcmp( Test, "START" )  &&
+X		 strcmp( Test, "END" )   &&
+X		 strcmp( Test, "RESB" )  &&
+X		 strcmp( Test, "RESW" )  &&
+X		 strcmp( Test, "RESR" )  &&
+X		 strcmp( Test, "BYTE" )  &&
+X		 strcmp( Test, "WORD" )  &&
+X		 strcmp( Test, "EXPORTS" )   
+X
+X		 ) ) ;
+}
+SHAR_EOF
+  (set 20 21 09 30 04 14 32 'directives.c'
+   eval "${shar_touch}") && \
+  chmod 0644 'directives.c'
+if test $? -ne 0
+then ${echo} "restore of directives.c failed"
+fi
+  if ${md5check}
+  then (
+       ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'directives.c': 'MD5 check failed'
+       ) << \SHAR_EOF
+e4ef4780fa8a17e67314cbd5a196be7a  directives.c
+SHAR_EOF
+
+else
+test `LC_ALL=C wc -c < 'directives.c'` -ne 327 && \
+  ${echo} "restoration warning:  size of 'directives.c' is not 327"
+  fi
+fi
+# ============= instructions.c ==============
+if test -n "${keep_file}" && test -f 'instructions.c'
+then
+${echo} "x - SKIPPING instructions.c (file already exists)"
+
+else
+${echo} "x - extracting instructions.c (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'instructions.c' &&
+#include "headers.h"
+X
+X
+int IsAnInstruction( char *Test ){
+X
+return		( 	! ( 
+X		 strcmp( Test, "LDA" )  &&
+X		 strcmp( Test, "STCH" )   
+X
+X		 ) ) ;
+}
+SHAR_EOF
+  (set 20 21 09 30 04 14 32 'instructions.c'
+   eval "${shar_touch}") && \
+  chmod 0644 'instructions.c'
+if test $? -ne 0
+then ${echo} "restore of instructions.c failed"
+fi
+  if ${md5check}
+  then (
+       ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'instructions.c': 'MD5 check failed'
+       ) << \SHAR_EOF
+392a8d1d0bdc00e9a1044de8da8655be  instructions.c
+SHAR_EOF
+
+else
+test `LC_ALL=C wc -c < 'instructions.c'` -ne 145 && \
+  ${echo} "restoration warning:  size of 'instructions.c' is not 145"
+  fi
+fi
+# ============= main.c ==============
+if test -n "${keep_file}" && test -f 'main.c'
+then
+${echo} "x - SKIPPING main.c (file already exists)"
+
+else
+${echo} "x - extracting main.c (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'main.c' &&
+#include "headers.h"
+X
+int main( int argc, char* argv[]){
+X
+X	FILE *fp;
+X	char line[1024];
+X	char* newsym;
+X	char* nextoken;
+X	char *tokens;
+X	int endCounter = 0;
+X	int lineNumber = 1;
+X	int locCtr = 0;
+//	int numSymbol = 0;
+X
+X	SYMBOL *tab[1024];
+X
+X	for (int x = 0; x<1025; x++){
+X          tab[x] = NULL;
+X        }
+X
+X	if ( argc != 2 ) {
+X		printf("\nERROR: Usage: %s filename\n", argv[0]);
+X		return 0;
+X	}
+X
+X	fp = fopen( argv[1], "r");
+X
+X	if ( fp == NULL ) {
+X		printf("\nERROR: %s could not be opened for reading,\n", argv[1] );
+X		return 0;
+X	}
+X	newsym = malloc(1024 * sizeof(char) );
+X        memset( newsym, '\0', 1024 * sizeof(char) );
+X        nextoken = malloc(  1024 * sizeof(char) );
+X        memset( nextoken, '\0', 1024 * sizeof(char) );
+X
+X        //Lines Exist in FP
+X        while(  fgets( line , 1024 , fp ) != NULL   ) {
+X
+X		if( locCtr == 32768 ){
+X			printf("\nASSEMBLY ERROR. line number %d, Line is: %sLocation counter exceeds max amount.\n", lineNumber, line );
+X			return -1;
+X		}
+X                char lineCopy[1024];
+X                strcpy( lineCopy, line );
+X
+X                //Check for Comment ASCII
+X                if ( line[0] == 35) {
+X                        //printf("COMMENT:%s", line );
+X                        continue;
+X                }
+X
+X                //If line contains upperCase Char
+X                if (  (line[0] >= 65 ) && ( line[0] <= 90 )   )  {
+X
+X                        strcpy(lineCopy, line);
+X                        newsym = strtok( line, " \t\n");
+X
+X                        //CHECK FOR START
+X                        if (lineNumber == 1){
+X                                char *tempSymbol = strtok ( NULL, " \t\r\n");
+X                                char *tempAddr = strtok ( NULL, " \t\r\n");
+X                                locCtr = hanStart(tempSymbol, tempAddr, lineCopy, lineNumber);
+X				if(locCtr == -1){
+X					return -1;
+X				}
+X                        }
+X
+X                        nextoken = strtok( NULL, " \t\n\r" );
+X
+X
+X                        //CHECK FOR VALID SYMBOL
+X                          if ( IsAValidSymbol(newsym) == 0 ) {
+X                                  printf("\nASSEMBLY ERROR. Line number %d, Line is: %s . INVALID SYMBOL\n", lineNumber, line);
+X                                  fclose(fp);
+X                                  return -1;
+X                          }
+X                        //CHECK IF SYMBOL IS NAMED AFER DIRECTIVE
+X                          if( IsADirective(newsym) == 1 ){
+X                                printf("\nASSEMBLY ERROR. Line number %d, Line is: %s \n SYMBOL IS NAMED AFTER A DIRECTIVE\n", lineNumber, line);
+X                                fclose(fp);
+X                                return -1;
+X                          }
+X
+X                        //CHECK IF TOKEN EXISTS AFTER SYMBOL
+X                          /* if (nextoken == "\t"){
+X                            printf("\nERROR. NO OPCODE/DIRECTIVE AFTER SYMBOL");
+X                            return 0;
+X                          } */
+X
+X
+X				if(checkIfSymbolExits(tab, newsym) == 0){
+X                           		addSymToTab(locCtr, newsym, tab);
+X
+X                        	}else{
+X					printf("\n ASSEMBLY ERROR. Line number %d, Line is: %s \n SYMBOL ALREADY EXISISTS IN TABLE. SYMBOL IS : %s \n", lineNumber, line, newsym);
+X					//fclose(fp);
+X					return -1;
+X				}
+X
+X                        lineNumber++;
+X                }
+X
+X                //IF OPDCODE WITH NO SYMBOL
+X                else{
+X
+X                  //Test LATER 
+//			printf("This is opcode\n");
+X			if(line[0] != 9){
+X				if(IsAValidSymbol(newsym) == 0 ){
+X					return -1;
+X				}
+X                 	}
+X			if(strcmp(nextoken, "END") == 0 ){
+X                    		endCounter++;
+X                    		if(endCounter == 2){
+X                      			printf("\nASSEMBLY ERROR. Line number %d, Line is: %sCANNOT HAVE 2 END DIRECTIVES\n", lineNumber, line);
+X                      			return -1;
+X                    		}
+X                  	}
+X
+X			lineNumber++;
+X                }
+X
+X                if(line[0] == 13){
+X                    if(strcmp( nextoken, "END" ) != 0){
+X                          printf("\nASSEMBLY ERROR. Line number %d, Line is: %s \n Cannot have empty lines\n",lineNumber, line);
+X                          endCounter++ ;
+X                                return -1;
+X                    } else{
+X                      endCounter++;
+X                     // printf("/n END COUNTER: %d", endCounter);
+X
+X                    }
+X                }
+X
+X      tokens = strtok ( lineCopy, " \t\n\r");
+X
+X
+X      while( tokens ){
+X
+X        //printf("\nTOKENS in Loop: %s, NEWSYM: %s\n", tokens,newsym);
+X        //CHECK IF SYMBOL AND TOKEN EQUAL
+X            if(strcmp (newsym , tokens) == 0){
+X	            tokens = strtok( NULL, " \t\n\r");
+X
+X        	    continue;
+X            }
+X
+X            if( strcmp( tokens, "END" ) == 0 ) {
+X                                    endCounter++;
+X                                    if( endCounter > 1 ) {
+X                                      printf("\nASSEMBLY ERROR. Line number %d, Line is: %sMultiple end directives not allowed\n", lineNumber, lineCopy);
+X                                                                                         return -1;
+X                                    }
+X                                    break;
+X            } else if( strcmp( tokens, "WORD" ) == 0 ) {
+X                                    tokens = strtok( NULL, " \t\n\r" );
+X                                    if( tokens == NULL ) {
+X                                                  printf("ASSEMBLY ERROR. Line number %d, Line is: %sMissing operand after End\n",  lineNumber, lineCopy);
+X                                            return -1;
+X                                    }
+X                                  int word = atoi( tokens );
+X                                  if( word > 8388608 ) {
+X                                            printf("ASSEMBLY ERROR. Line number %d, Line is: %sConstant word after directive exceed max word size of 2^23\n",  lineNumber, lineCopy);
+X                                            return -1;
+X                                    }
+X                                                          locCtr += 3;
+X                                    if ( locCtr > 1048576 ) {
+X                                            printf("ASSEMBLY ERROR. Line number %d, Line is: %sMemory has been exceed\n", lineNumber, lineCopy );
+X                                            return -1;
+X                                    }
+X                                    break;
+X            } else if( strcmp( tokens, "RESW" ) == 0 ) {
+X                                    tokens = strtok( NULL, " \t\n\r");
+X                                    if( tokens == NULL ) {
+X                                            printf("ASSEMBLY ERROR.Line number %d, Line is: %sMissing operand after REWS\n", lineNumber, lineCopy);
+X                                            return -1;
+X                                    }
+X                                    locCtr += 3 * atoi( tokens );
+X                                    if ( locCtr > 1048576 ) {
+X                                            printf("ASSEMBLY ERROR. Line number %d, Line is: %sMemory has been exceed\n", lineNumber, lineCopy );
+X                                            return -1;
+X                                    }
+X                                    break;
+X            } else if( strcmp( tokens, "RESB" ) == 0 ) {
+X                                    tokens = strtok( NULL, " \t\n\r");
+X                                    if( tokens == NULL ) {
+X                                            printf("ASSEMBLY ERROR. Line number %d, Line is: %sMissing operand after Resb\n", lineNumber, lineCopy);
+X                                            return -1;
+X                                    }
+X                                    locCtr += atoi( tokens );
+X                                    if ( locCtr > 1048576 ) {
+X                                            printf("ASSEMBLY ERROR. Line number %d, Line is: %sMemory has been exceed\n", lineNumber, lineCopy );
+X                                            return -1;
+X                                    }
+X                                    break;
+X            } else if( strcmp( tokens, "RESR" ) == 0 ) {
+X                                    locCtr += 3;
+X                                    if ( locCtr > 1048576 ) {
+X                                            printf("ASSEMBLY ERROR. Line number %d, Line is: %sMemory has been exceed\n", lineNumber, lineCopy );
+X                                            return -1;
+X                                    }
+X                                                            tokens = strtok( NULL, " \t\n\r");
+X                                    if( tokens == NULL ) {
+X                                            printf("ASSEMBLY ERROR. Line number: %d, Line is: %sMISSING OPERAND AFTER RESR\n", lineNumber, lineCopy);
+X                                            return -1;
+X                                    }
+X                                    break;
+X            } else if( strcmp( tokens, "EXPORTS" ) == 0 ) {
+X                                    locCtr += 3;
+X                                    if ( locCtr > 1048576 ) {
+X                                            printf("ASSEMBLY ERROR. Line number %d, Line is: %sMemory needed, exceeded memory\n",  lineNumber, lineCopy );
+X                                            return -1;
+X                                    }
+X                                    break;
+X            } else if( strcmp( tokens, "BYTE" ) == 0 ) {
+X                                    tokens = strtok( NULL, " \t\n\r");
+X                                    if( tokens == NULL ) {
+X                                            printf("ASSEMBLY ERROR. Line number %d, Line is: %sMissing operand after BYTE\n",  lineNumber, lineCopy);
+X                                            return -1;
+X                                    }
+X                                    if( tokens[0] == 'X' && tokens[1] == '\'' ) {
+X                                    char *hex = strtok( tokens, "X'" );
+X                                    if( isValidHex( hex ) == -1 ) {
+X                                                    printf("ASSEMBLY ERROR. Line number %d, Line is: %sInvalid Hex in operand BYTE\n",  lineNumber, lineCopy);
+X                                                    return -1;
+X                                            }
+X                                            locCtr += ( strlen( hex ) ) / 2;
+X                                    } else if( tokens[0] == 'C' && tokens[1] == '\'' ) {
+X                                    char *constant = strtok( tokens, "C'" );
+X
+X                                            locCtr += strlen( constant );
+X                                    } else {
+X                                            printf("\tASSEMBLY ERROR. Line number %d, Line is:%s Invalid operand after BYTE\n",lineNumber, lineCopy);
+X                                            return -1;
+X                                                            }
+X                                                            if ( locCtr > 1048576 ) {
+X                                            printf("ASSEMBLY ERROR. Line number %d, Line is: %sMemory needed, exceed memory\n",  lineNumber, lineCopy);
+X                                            return -1;
+X                                    }
+X                                    break;
+X          }  else if(strcmp(tokens, "START") == 0){
+X				break;
+X
+X          }
+X	//IF NO DIRECTIVES FOUND
+X	   else {
+X                                         locCtr += 3;
+X                                         break;
+X         }
+X
+X    	 tokens = strtok( NULL, " \t\n\r");
+X }
+X
+X
+X
+X  }
+X
+X
+X   	for (int i = 0; tab[i] != NULL; i++){
+X
+X   		printf("\n%s,\t %x\n", tab[i]->Name, tab[i]->Address );
+X    	}
+X
+//  	free(newsym);
+//	free(nextoken);
+//	free(tokens);
+X	for(int i=0;tab[i];i++){
+X      		free(tab[i]);
+X    	}
+X
+X	fclose( fp );
+X
+}
+X
+X
+int isValidHex( char *hexString ) {
+X        for( int i = 0; i < strlen( hexString ); i++ ) {
+X                if( isxdigit( hexString[i] ) == 0 ) {
+X                        return -1;
+X                }
+X        }
+X	return 0;
+}
+X
+int hanStart(char *start,char *startAddr, char lineCopy[1024], int lineNum){
+X        int startAddress = 0;
+X	char *ptr;
+X
+X        if( strcmp( start, "START") == 0){
+X
+X                if( isValidHex( startAddr ) == -1){
+X                        printf("\nASSEMBLY ERROR. Line number %d, Line is: %sInvalid hex in start Address \n", lineNum, lineCopy );
+X                        return -1;
+X                } else if(startAddr < 0){
+X                        printf("\nASSEMBLY ERROR. Line number %d, Line is: %sInvalid start address, is below range \n", lineNum, lineCopy );
+X                        return -1;
+X                } else if ( startAddress >= 32768 ){
+X                        printf("\nASSEMBLY ERROR. Line number %d, Line is: %sInvalid start address, is below range \n", lineNum, lineCopy );
+X                        return -1;
+X                } else{}
+X
+X
+X                  startAddress = strtol (startAddr, &ptr, 16);
+X
+X                return startAddress;
+X        }
+X        //printf("%s", start);
+X        else{
+X             	printf("\nASSEMBLY ERROR. Line number %d, Line is: %sInvalid token for start directive \n", lineNum, lineCopy );
+X                return -1;
+X        }
+}
+X
+SHAR_EOF
+  (set 20 21 10 01 20 46 09 'main.c'
+   eval "${shar_touch}") && \
+  chmod 0644 'main.c'
+if test $? -ne 0
+then ${echo} "restore of main.c failed"
+fi
+  if ${md5check}
+  then (
+       ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'main.c': 'MD5 check failed'
+       ) << \SHAR_EOF
+094d88694e4e4b3e6e9cd79ee4c562fa  main.c
+SHAR_EOF
+
+else
+test `LC_ALL=C wc -c < 'main.c'` -ne 13295 && \
+  ${echo} "restoration warning:  size of 'main.c' is not 13295"
+  fi
+fi
+# ============= symbols.c ==============
+if test -n "${keep_file}" && test -f 'symbols.c'
+then
+${echo} "x - SKIPPING symbols.c (file already exists)"
+
+else
+${echo} "x - extracting symbols.c (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'symbols.c' &&
+#include "headers.h"
+X
+X
+X
+int IsAValidSymbol( char *TestSymbol ){
+X
+X	int Result = 1;
+X	int index = 0;
+X	int maxlength = 6;
+X	int done;
+X	done = 0 ;
+X
+X	while( !done ) {
+//		printf("\nIs digit is : %c\n", TestSymbol[index]);
+X		if ( TestSymbol[index] == '\0' ) {
+X			break;
+X		}
+X		if( isalnum(TestSymbol[index]) == 0 ){
+X
+X	          	printf("ASSEMBLY ERROR. Charecter in Symbol %s is invalid " ,TestSymbol);
+X            		Result = 0;
+X        	}
+X		if(IsADirective(TestSymbol) == 1){
+X			done = 1;
+X			Result = 0;
+X		}
+X		if ( index == maxlength ) {
+X			done = 1;
+X			Result = 0;
+X		}
+X		index++;
+X
+X	}
+X
+/*	if(!(isalpha(TestSymbol)) || !(isdigit(TestSymbol)) ){
+X   		 Result = 0;
+X  	}
+*/
+X	return Result;
+}
+X
+void addSymToTab(int addr, char *sname, SYMBOL *table[]) {
+X  	int index = 0;
+X  	SYMBOL *newsym;
+X
+X 	newsym = malloc(sizeof(SYMBOL));
+X  	newsym -> Address = addr; //inside newsym set Address to Addr Obj.property = 100; 
+X 	strcpy(newsym -> Name, sname);
+X
+X  	while(table[index] != NULL){
+X		index++;
+X	}
+X
+X	table[index] = newsym;
+X
+}
+X
+int checkIfSymbolExits(SYMBOL *tab[], char *sname){
+X	int resuct = 0;
+X	int index = 0;
+X
+X	while(tab[index]!= NULL){
+X		if(strcmp(sname,tab[index]->Name) == 0){
+X			resuct = -1;
+X			break;
+X		}
+X		index++;
+X	}
+X
+X	return resuct;
+}
+SHAR_EOF
+  (set 20 21 10 01 12 31 36 'symbols.c'
+   eval "${shar_touch}") && \
+  chmod 0644 'symbols.c'
+if test $? -ne 0
+then ${echo} "restore of symbols.c failed"
+fi
+  if ${md5check}
+  then (
+       ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'symbols.c': 'MD5 check failed'
+       ) << \SHAR_EOF
+48fdded8371d62fa36d21ddf76aad064  symbols.c
+SHAR_EOF
+
+else
+test `LC_ALL=C wc -c < 'symbols.c'` -ne 1227 && \
+  ${echo} "restoration warning:  size of 'symbols.c' is not 1227"
+  fi
+fi
+# ============= headers.h ==============
+if test -n "${keep_file}" && test -f 'headers.h'
+then
+${echo} "x - SKIPPING headers.h (file already exists)"
+
+else
+${echo} "x - extracting headers.h (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'headers.h' &&
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+X
+X
+typedef struct symbols {
+X	int	DefinedOnSourceLine;
+X	int	Address; 
+X	char	Name[7]; } Symbol;
+X
+typedef struct symbols	SYMBOL;
+X
+struct opcodes {
+X	char	OpCode;	
+X	char	Name[8];
+X
+};
+X
+typedef struct opcodes OPCODES;
+X
+X
+OPCODES OpcodeTable[ 32 ];
+X
+int IsAnInstruction( char *Test );
+int IsAValidSymbol( char *TestSymbol );
+int IsADirective( char *Test );
+int isValidHex( char *hexString );
+int hanStart( char *start, char *startAddr, char lineCopy[1024], int numLine );
+int checkIfSymbolExits(SYMBOL *tab[], char *sname);
+void addSymToTab(int addr, char *sname, SYMBOL *table[]);
+SHAR_EOF
+  (set 20 21 10 01 15 02 21 'headers.h'
+   eval "${shar_touch}") && \
+  chmod 0644 'headers.h'
+if test $? -ne 0
+then ${echo} "restore of headers.h failed"
+fi
+  if ${md5check}
+  then (
+       ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'headers.h': 'MD5 check failed'
+       ) << \SHAR_EOF
+d95ac73a0e5809dae17bb5b704f93d29  headers.h
+SHAR_EOF
+
+else
+test `LC_ALL=C wc -c < 'headers.h'` -ne 650 && \
+  ${echo} "restoration warning:  size of 'headers.h' is not 650"
+  fi
+fi
+# ============= makefile ==============
+if test -n "${keep_file}" && test -f 'makefile'
+then
+${echo} "x - SKIPPING makefile (file already exists)"
+
+else
+${echo} "x - extracting makefile (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'makefile' &&
+project1:	main.o symbols.o  directives.o headers.h
+X	gcc -o project1 -Wall  -O0 main.o symbols.o directives.o
+X
+main.o:	main.c headers.h 
+X	gcc -c -Wall  -O0 main.c
+X
+symbols.o:	symbols.c headers.h
+X	gcc -c -Wall  -O0 symbols.c
+X
+directives.o:	directives.c headers.h
+X	gcc -c -Wall  -O0 directives.c
+X
+X
+clean:	
+X	rm *.o -f
+X	touch *.c
+X	rm project1 -f
+SHAR_EOF
+  (set 20 21 09 30 04 14 32 'makefile'
+   eval "${shar_touch}") && \
+  chmod 0644 'makefile'
+if test $? -ne 0
+then ${echo} "restore of makefile failed"
+fi
+  if ${md5check}
+  then (
+       ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'makefile': 'MD5 check failed'
+       ) << \SHAR_EOF
+de37ab51e252a8384ab554dc529108b5  makefile
+SHAR_EOF
+
+else
+test `LC_ALL=C wc -c < 'makefile'` -ne 341 && \
+  ${echo} "restoration warning:  size of 'makefile' is not 341"
+  fi
+fi
+# ============= documentation.txt ==============
+if test -n "${keep_file}" && test -f 'documentation.txt'
+then
+${echo} "x - SKIPPING documentation.txt (file already exists)"
+
+else
+${echo} "x - extracting documentation.txt (text)"
+  sed 's/^X//' << 'SHAR_EOF' | uudecode &&
+begin 600 documentation.txt
+M5&AI<R!I;7!L96UE;G1A=&EO;B!O9B!P87-S(#$@22!U<V4@:6YI=&EA;&QY
+M('1H;W5G:'0@=&\@=7-E(&$@;&EN:V5D(&QI<W0@:6UP;&5M96YT871I;VX@
+M8G5T($D@96YD960@=7`@=7-I;F<@86X@07)R87D@;V8@<&]I;G1E<G,N($9U
+M<G1H97)M;W)E($D@"G5S960@>6]U<B`R(&9U;F-T:6]N<R!F;W(@861D('1O
+M('-Y;6)O;"!A;F0@8VAE8VL@<WEM8F]L('1A8FQE(&)Y(&%L;&]C871I;F<@
+M<VEZ92!O9B!S>6UB;VP@=&\@=&AE(&YE=W-Y('9A<FEA8FQE+B!4:&5N('5S
+M92!T:&4@<&]I;G1E<B`*;F]T871I;VX@=&\@<W1O<F4@=&AE(&%D9')E<W,@
+M86YD('-T<FEN9R!C;W!Y('1H92!N86UE(&EN=&\@=&AE(&EN9&5X(&]F('1H
+M92!S=')U8W0N(%1H96X@=7-I;F<@82!L;V]P('1O(&-H96-K(&EF('1H92!T
+M86)L92!H87,@:71E<F%T92!T;R!A(&YE=R`*:6YD97@@86YD('1H96X@<W1O
+M<F4@<WEM8F]L(&YE=W-Y;2!I;G1O('1A8FQE+B!4:&4@;&]C871I;VX@8V]U
+M;G1E<B!W87,@:&%N9&QE9"!B>2!A(&YU;6)E<B!O9B!S=')I;F<@8V]M<&%R
+M92!E;'-E(&EF('-T871E;65N=',@=&AA="`*87!P<F]P<FEA=&4@861D('1O
+M('1H92!C;W5N=&5R+@H*22!D;R!B96QI979E(&5V97)Y=&AI;F<@:7,@8V]M
+M<&QE=&4@86YD('!O=&5N=&EA;&QY('-I;F-E($D@=V%S(&YO="!S=7)E(&]F
+M('=H870@=&AE(&%P<')O<')I871E(&]U='!U=',@9F]R('1H92!,;V-A=&EO
+M;B!C;W5N=&5R+"!)(&%M('-U<F4@:68@=&AA=.*`F7,@"G=H:6QE(&QO;W`@
+M:&%N9&QE9"!A;&P@=&AE(&1I<F5C=&EV97,@87!P<F]P<FEA=&5L>2X@268@
+M86YY=&AI;F<@9F]R('1H92!N97AT('!A<W,@2>*`F60@;&EK92!T;R!C:&%N
+M9V4@=&AO<V4@96QS92!I9B!S=&%T96UE;G1S('1O(&$@9&EF9F5R96YT(&9U
+M;F-T:6]N('-O(`IT:&%T($D@8V%N(&AA=F4@82!C;&5A;F5R(&UA:6X@9G5N
+M8W1I;VX@9F]R(&QA=&5R+B!,87-T;'DL($D@86QS;R!H860@<')O8FQE;7,@
+M9G)E96EN9R!M>2!A;&QO8V%T960@;65M;W)Y+B!&<F]M(&UY(&]V97)V:65W
+M+"!)(&)E;&EE=F5D(&UY(`II<W-U92!T;R!B92!T:&%T('-I;F-E($D@9&ED
+M(&YO="!H879E('1E;7!O<F%R>2!V87)I86)L97,@=&\@XH"<('-T<G1O:R#B
+M@)P@:6YT;RP@=&AO<V4@:6YD97CB@)ES(&]F(&UE;6]R>2!H860@8F5E;B!D
+M:7-T;W)T960@*"!N97=S>6U-96T@/2!N97=S>6T@/2`*<W1R=&]K*$Y53$PL
+M(.*`G"`O="]N+W(I.R`@*2X@22!W:6QL('1R>2!T;R!F:7@@=&AE<V4@<&]I
+G;G1E<G,@:68@=&AI<R!I<R!I;B!F86-T('1H92!P<F]B;&5M+B`*
+`
+end
+SHAR_EOF
+  (set 20 21 10 03 11 21 16 'documentation.txt'
+   eval "${shar_touch}") && \
+  chmod 0644 'documentation.txt'
+if test $? -ne 0
+then ${echo} "restore of documentation.txt failed"
+fi
+  if ${md5check}
+  then (
+       ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'documentation.txt': 'MD5 check failed'
+       ) << \SHAR_EOF
+034c042dfb4fcfc1d2de70ef4849e45a  documentation.txt
+SHAR_EOF
+
+else
+test `LC_ALL=C wc -c < 'documentation.txt'` -ne 1299 && \
+  ${echo} "restoration warning:  size of 'documentation.txt' is not 1299"
+  fi
+fi
+if rm -fr ${lock_dir}
+then ${echo} "x - removed lock directory ${lock_dir}."
+else ${echo} "x - failed to remove lock directory ${lock_dir}."
+     exit 1
+fi
+exit 0
