@@ -32,4 +32,5 @@ void addSymToTab(int addr, char *sname, SYMBOL *table[]);
 void fixHexLength();
 void fixCharLength();
 void addTrecord();
+int searchSymTab(char *tokens, SYMBOL *table[]);
 int searchOpcode(char *opCode);
