@@ -1,4 +1,0 @@
-TEST    START   4000
-LOOP    LDX     ZERO
-DST     RESB    11
-ELEVEN  WORD    11

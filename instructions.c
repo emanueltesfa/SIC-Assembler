@@ -14,7 +14,7 @@ const OPCODE opcode[59] = {
 
 int searchOpcode(char *inputOp){
 	
-	int opNum = 0;
+	int opNum = -1;
         //printf("Opcode passed in is: %s\n", inputOp);
 
         for (int i = 0; i <59; i++){
