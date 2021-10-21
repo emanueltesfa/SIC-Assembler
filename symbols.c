@@ -18,8 +18,10 @@ int IsAValidSymbol( char *TestSymbol ){
 		if( isalnum(TestSymbol[index]) == 0 ){
 
 	          	printf("ASSEMBLY ERROR. Charecter in Symbol %s is invalid " ,TestSymbol);
-            		Result = 0;
-        	}
+
+			Result = 0;
+			break;
+		}
 		if(IsADirective(TestSymbol) == 1){
 			done = 1;
 			Result = 0;
@@ -53,7 +55,7 @@ void addSymToTab(int addr, char *sname, SYMBOL *table[]) {
 
 	table[index] = newsym;
 
-}
+}// int return of index 
 
 int checkIfSymbolExits(SYMBOL *tab[], char *sname){
 	int resuct = 0;
