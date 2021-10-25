@@ -309,28 +309,43 @@ int main(int argc, char *argv[])
                         }
                 }
         }
-        for (int i = 0; tab[i] != NULL; i++)
+
+
+	char *firstSym = NULL;
+	firstSym = malloc(sizeof(firstSym));
+	strcpy(firstSym, tab[0]->Name);
+        
+	/*for (int i = 0; tab[i] != NULL; i++)
         {
 
                 printf("\n%s,\t %x\n", tab[i]->Name, tab[i]->Address);
-        }
+        }*/
+	
+
         rewind(fp);
 
+	FILE *objFP;
+	objFP = fopen( "objectFile.obj", "w" );
         int tempLocCtr = 0;
         int totalLines = lineNumber;
         lineNumber = 1;
-	printf("\n TOTAL LINES: %d\n", totalLines);
+	int boolCtr[totalLines];
+	char eRecord[7];
+
 
         while (fgets(line, 1024, fp) != NULL)
         {
+		boolCtr[lineNumber] = 10;
                 char lineCopy2[1024];
                 char hex[7];
-                strcpy(lineCopy2, line);
-                tempLocCtr = 0;
+		
+  		strcpy(lineCopy2, line);
+  		tempLocCtr = 0;
                 char *tokens = strtok(line, " \t\r\n");
-                printf("\n\nLine Num: %d\n", lineNumber);
-		printf("\n Line is: %s", lineCopy2); 
-                if (lineCopy2[0] == 35)
+                //printf("\n\nLine Num: %d\n", lineNumber);
+		//printf("\n Line is: %s", lineCopy2); 
+                
+		if (lineCopy2[0] == 35)
                 {
                         continue;
                 }
@@ -344,20 +359,24 @@ int main(int argc, char *argv[])
                         }
                 }
 
+
                 //Calcualte H Record
                 if (lineNumber == 1)
                 {
                         int lenProg = locCtrArr[totalLines - 1] - initAdd;
-                        char headerR[12];
-
+                        char headerR[18];
                         strcat(headerR, "H");
-                        strcat(headerR, tokens); // SHOULD BE 6 SPACES OF NAME OF PROG (Trailing Spaces)
-                        sprintf(hex, "%X", initAdd);
-                        strcat(headerR, hex); //SHOULD BE 6 SPACE OF START ADDR (Trailing 0)
-                        sprintf(hex, "%8.8X", lenProg);
-                        strcat(headerR, hex); //SHOULD BE 6 SAPCES (Prior 00) LENGTH OF PROG
-                        printf("\nH record: %s\n", headerR);
-                        //FIX LENGTH OF EACH RECORD
+			strcpy(firstSym, tokens);
+		       	strcat(headerR, tokens); // SHOULD BE 6 SPACES OF NAME OF PROG (Trailing Spaces)
+                       	strcat(headerR, "  ");
+			sprintf(hex, "%6.6X", initAdd);
+			strcat(headerR, hex); //SHOULD BE 6 SPACE OF START ADDR (Trailing 0)
+                        sprintf(hex, "%6.6X", lenProg);
+			strcat(headerR, hex); //SHOULD BE 6 SAPCES (Prior 00) LENGTH OF PROG
+//                      printf("\nH record: %s\n", headerR);
+                        fputs(headerR, objFP);
+			fputs("\n", objFP);
+			//FIX LENGTH OF EACH RECORD
                 }
 
                 //T record
@@ -383,23 +402,26 @@ int main(int argc, char *argv[])
                                        		opRetr = searchOpcode(tokens);
                                         	if (opRetr == -1)
                                         	{
-                                                	lineNumber++;
+                                                	remove ("objectFile.obj");
+							lineNumber++;
                                                		printf("\n PASS 2 ERROR NOT A VALID OPCODE\n");
                                                 	continue;
                                         	}
                                 
-                                	sprintf(hex, "%X", opRetr);
+                                	sprintf(hex, "%2.2X", opRetr);
                                 	strcat(tRecord, hex);
                                 	tokens = strtok(NULL, " \t\r\n");
                                 	addRetr = searchSymTab(tokens, tab);
                                 	if (addRetr == 0)
                                 	{
-                                        	printf("SYMBOL DOES NOT EXIT IN TABLE");
-                                        	break;
+                                        	printf("SYMBOL DOES NOT EXIT4 IN TABLE");
+						remove ("objectFile.obj");
+						break;
                                 	}
-						
-                                	sprintf(hex, "%X", addRetr);				
+					boolCtr[lineNumber] = 1;		
+                              	  	sprintf(hex, "%X", addRetr);				
                                 	strcat(tRecord, hex);
+					boolCtr[lineNumber] = 1;
 				
 				} //UPDATED BRACKET TO ACCOUNT FOR DIRECTIVES
 				else
@@ -422,25 +444,32 @@ int main(int argc, char *argv[])
 							char *temp = strtok ( tokens, "X'");
 							strcat(tRecord,temp );
 						}else{
+							remove ("objectFile.obj");
 							printf("\nASSEMBLY ERROR. NOT VALID OPERAND IN BYTE.\n");
 						}
-					
+						boolCtr[lineNumber] = 0;
+
 					} else if(strcmp(tokens, "WORD") == 0 ){
 						int convInt; 
 						tokens = strtok(NULL, " \t\r\n");
 						convInt = atoi ( tokens );
 						sprintf(hex , "%6.6X" ,convInt );
-						strcat(tRecord, hex); 
+						strcat(tRecord, hex);
+					       boolCtr[lineNumber] = 0;	
 					} else if(strcmp(tokens, "RESB") == 0 ){
+						boolCtr[lineNumber] = 0;
 						lineNumber++;
 						continue;					
 					} else if(strcmp(tokens, "RESW") == 0 ){
+						boolCtr[lineNumber] = 0;
 						lineNumber++;
 						continue;
 					}else{}
 				}
 
-                                printf("\nT record: %s\n", tRecord);
+				fputs(tRecord, objFP);
+				fputs("\n", objFP); 
+//				printf("\nT record: %s\n", tRecord);
                         }
                         //if line has no SYMBOL DECLARED
                         else
@@ -452,17 +481,20 @@ int main(int argc, char *argv[])
                                         if (opRetr == -1)
                                         {
                                                 lineNumber++;
+						remove ("objectFile.obj");
                                                 printf("\n PASS 2 ERROR NOT A VALID OPCODE\n");
                                                 continue;
                                         }
                                 }
                                 //if a directive
-                                sprintf(hex, "%X", opRetr);
+                                sprintf(hex, "%2.2X", opRetr);
                                 strcat(tRecord, hex);
-				if (opRetr == 76 || opRetr ==72){
-					printf("\nThis is jSub or R sub\n");
+				if (opRetr == 76){
 					strcat(tRecord, "RSUB"); // doesnt matter
-					printf("\nT record: %s\n", tRecord);
+					fputs(tRecord, objFP);
+                                	fputs("\n", objFP);
+//					printf("\nT record: %s\n", tRecord);
+					boolCtr[lineNumber] = 0;
 					lineNumber++;
 					continue;	
 				}else if( opRetr == 80 || opRetr == 84){
@@ -470,6 +502,7 @@ int main(int argc, char *argv[])
 					addRetr = searchSymTab(tokens, tab);
                                 	if (addRetr == 0)
                                 	{
+						remove ("objectFile.obj");
                                         	printf("SYMBOL DOES NOT EXIT IN TABLE");
                                         	break;
                                 	}
@@ -477,55 +510,85 @@ int main(int argc, char *argv[])
         	                        addRetr += 32768;
                                 	sprintf(hex, "%X", addRetr);
                                 	strcat(tRecord, hex);
-                                	printf("\nT record: %s\n", tRecord);
+                                	
+					fputs(tRecord, objFP);
+                                	fputs("\n", objFP);
+					//printf("\nT record: %s\n", tRecord);
+					boolCtr[lineNumber] = 1;
 					lineNumber++;
 					continue;
 				}
-                                //printf("\nTokens2 in else: %s \n", tokens);
 				tokens = strtok(NULL, " \t\r\n");
-				
-				
-				
                                 addRetr = searchSymTab(tokens, tab);
-                                if (addRetr == 0)
+                                
+				if (addRetr == 0)
                                 {
                                         printf("SYMBOL DOES NOT EXIT IN TABLE");
-                                        break;
+                                        remove ("objectFile.obj");
+					break;
                                 }
+
+				boolCtr[lineNumber] = 1;
                                 sprintf(hex, "%X", addRetr);
                                 strcat(tRecord, hex);
-                                printf("\nT record: %s\n", tRecord);
+                                fputs(tRecord, objFP);
+				fputs("\n", objFP);
+
+//				printf("\nT record: %s\n", tRecord);
                         }
                         //break;
                 }
 		
 		else {
 			int addRetr = 0;
-			char eRecord[7];
+			eRecord[0] = '\0';
+			
 			strcat(eRecord, "E");
 			tokens = strtok(NULL, " \t\r\n");
 			tokens = strtok(NULL, " \t\r\n");
 			addRetr = searchSymTab(tokens, tab);
+			
 			if (addRetr == 0)
 			{
+				remove ("objectFile.obj");
 				printf("SYMBOL DOES NOT EXIT IN TABLE");
                                 break;
 			}
 			sprintf(hex, "%6.6X", addRetr);
                         strcat(eRecord, hex);
-			printf("\nE record: %s\n", eRecord);
+			fputs(eRecord, objFP);
+			fputs("\n", objFP);
+//			printf("\nE record: %s\n", eRecord);
+			break;
 		}
 
                 lineNumber++;
         }
 
-
+	for (int i = 1; i < totalLines; i++){
+		if ( boolCtr[i] == 1){
+			char mRecord[16];
+                	char hex2[7];
+                	memset(mRecord, '\0', 1024 * sizeof(char));
+                	strcat(mRecord, "M");
+                	sprintf(hex2, "%6.6X", (locCtrArr[i] + 1));
+                	strcat(mRecord, hex2);
+                	strcat(mRecord, "04" );
+                	strcat(mRecord, "+");		
+			strcat(mRecord, firstSym);
+//			printf("\n Mod Record is: %s \n", mRecord);
+                	fputs(mRecord, objFP);
+                	fputs("\n", objFP);	
+		}
+	}
+	
+	fclose(objFP);
         fclose(fp);
 
-	for (int i = 1; tab[i+1] != NULL; i++)
+	for (int i = 0; tab[i+1] != NULL; i++)
 	{
-		//free(tab[i]->Name);
-                free(tab[i]);
+		free(tab[i]->Name);
+		free(tab[i]);
         }
 }
 
@@ -544,7 +607,7 @@ int isValidHex(char *hexString)
 int searchSymTab(char *tokens, SYMBOL *table[])
 {
         int result = 0;
-        printf("\nTokens: %sEND \n", tokens);
+        //printf("\nTokens: %sEND \n", tokens);
 
         for (int i = 1; table[i+1] != NULL; i++){
 
