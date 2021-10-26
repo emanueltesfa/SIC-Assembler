@@ -1,0 +1,8 @@
+My implementation of Pass 2 includes ways to handle the Modification, Text, Header and End records. By using strcmp and a multitude of if-else statments, I determine which type of rrecord needs to be constructed and using string concatenation and sprintfs to change integers into hex charecters. I also populated the Location Counter into array and concatenate  it into whichever instance needed. 
+
+I did try very hard to break down text records into different lines once the length extends 31 char long but I had to go back to an old version of my code without it as it would error out and not give the correct text record. Due to this it fails test cases 9 and 10 but passes the rest. Futhremore, we spoke about freeing the table[i]->Name pointer but it wouldn't free up any space and cause a segmentation fault in test case 7. But removing that allowed for me to catch that error. In some ways, I wish for the sake of structure that I constrcuted pseudocode that would allow me to reduce repeated code in the T-records but Pass 2 helped me to learn on the go which is how limitations occured when trying to seperate line.
+
+Emanuel Tesfa 
+N01058529
+
+
