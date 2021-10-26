@@ -364,7 +364,7 @@ int main(int argc, char *argv[])
                 if (lineNumber == 1)
                 {
                         int lenProg = locCtrArr[totalLines - 1] - initAdd;
-                        char headerR[18];
+                        char headerR[18] = {0};
                         strcat(headerR, "H");
 			strcpy(firstSym, tokens);
 		       	strcat(headerR, tokens); // SHOULD BE 6 SPACES OF NAME OF PROG (Trailing Spaces)
@@ -587,7 +587,7 @@ int main(int argc, char *argv[])
 
 	for (int i = 0; tab[i+1] != NULL; i++)
 	{
-		free(tab[i]->Name);
+		//free(tab[i]->Name);
 		free(tab[i]);
         }
 }
